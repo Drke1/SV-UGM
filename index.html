@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.130/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.130/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  
+  <style>
+    .cesium-viewer-bottom {
+        display: none !important;
+    }
+
+    .my-custom-logo-container {
+        position: absolute; 
+        bottom: 25px;       
+        left: 20px;         
+        z-index: 9999;      
+    }
+
+    .my-custom-logo {
+        width: 150px; 
+    }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer">
+      <div class="my-custom-logo-container">
+          <a href="https://sv.ugm.ac.id/wp-content/uploads/sites/27/2021/09/Lambang-UGM-putih.png" target="_blank"> <img class="my-custom-logo" src="https://sv.ugm.ac.id/wp-content/uploads/sites/27/2021/09/Lambang-UGM-putih.png" alt="Logo Kustom"> </a>
+      </div>
+  </div>
+
+  <script type="module">
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiNDJhNGIzMy1lYjk1LTQ5MTgtOGIxMy1iMjNkYWFjZTZjZGMiLCJpZCI6MzA1NDUzLCJpYXQiOjE3NDk4ODQ0NjF9.ZzfqWk4Sc_3zrTXoyumAzAVH4QavWxwZ5kLWHN6KZ4E';
+
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+      terrain: Cesium.Terrain.fromWorldTerrain(),
+
+      animation: false,
+      timeline: false,
+      homeButton: false,
+      sceneModePicker: false,
+      geocoder: true,
+      baseLayerPicker: true,
+      navigationHelpButton: true,
+      fullscreenButton: true,
+    });    
+
+    viewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(110.37394, -7.77463, 400),
+      orientation: {
+        heading: Cesium.Math.toRadians(0.0),
+        pitch: Cesium.Math.toRadians(-90.0),
+      }
+    });
+
+    const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(3591078);
+
+    viewer.scene.primitives.add(tileset);   
+  </script>
+</body>
+</html>
